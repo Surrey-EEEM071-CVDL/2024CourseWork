@@ -14,7 +14,7 @@ class VeRi(BaseImageDataset):
     Liu, X., Liu, W., Ma, H., Fu, H.: Large-scale vehicle re-identification in urban surveillance videos. In: IEEE   %
     International Conference on Multimedia and Expo. (2016) accepted.
 
-    Dataset statistics:
+    Dataset statistics: Total images
     # identities: 776 vehicles(576 for training and 200 for testing)
     # images: 37778 (train) + 11579 (query)
     """
@@ -69,8 +69,16 @@ class VeRi(BaseImageDataset):
         if not osp.exists(self.gallery_dir):
             raise RuntimeError(f'"{self.gallery_dir}" is not available')
 
+    '''
+    Read images as per the file names mentioned in corresponding text files
+    name_train.txt, name_query.txt, name_test.txt
+    '''
     def process_dir(self, dir_path, relabel=False):
-        img_paths = glob.glob(osp.join(dir_path, "*.jpg"))
+        img_paths = []
+        with open(osp.join(self.dataset_dir, "name_" + dir_path.split("_")[-1] + ".txt"), "r") as file:
+            for image_name in file:
+                image_name = image_name.rstrip()
+                img_paths.append(osp.join(dir_path, image_name))
         pattern = re.compile(r"([-\d]+)_c([-\d]+)")
 
         pid_container = set()
