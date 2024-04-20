@@ -71,13 +71,13 @@ class VeRi(BaseImageDataset):
 
     '''
     Read images as per the file names mentioned in corresponding text files
-    name_test.txt, name_query.txt, name_test.txt
+    name_train.txt, name_query.txt, name_test.txt
     '''
     def process_dir(self, dir_path, relabel=False):
         img_paths = []
         with open(osp.join(self.dataset_dir, "name_" + dir_path.split("_")[-1] + ".txt"), "r") as file:
             for image_name in file:
-                image_name = image_name.rstrip("\n")
+                image_name = image_name.rstrip()
                 img_paths.append(osp.join(dir_path, image_name))
         pattern = re.compile(r"([-\d]+)_c([-\d]+)")
 
