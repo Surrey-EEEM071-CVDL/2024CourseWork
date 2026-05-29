@@ -1,4 +1,6 @@
 # Copyright (c) EEEM071, University of Surrey
+from torchvision.models import vgg19
+from transformers import ViTModel
 
 from .resnet import (
     resnet18,
@@ -21,6 +23,8 @@ __model_factory = {
     "resnet50_fc512": resnet50_fc512,
     "mobilenet_v3_small": mobilenet_v3_small,
     "vgg16": vgg16,
+    "vgg19": vgg19,
+    "vit_base_patch16_224": ViTModel,
 }
 
 
